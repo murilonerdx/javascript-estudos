@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercicios</title>
+</head>
+<body>
+    <form class="form" action="" method="get">
+        <p>Nome: <input type="text" class="nome"></p>
+        <p>Sobrenome:  <input type="text" class="sobrenome"></p>
+        <p>Peso:  <input type="text" class="peso"></p>
+        <p>Altura:  <input type="text" class="altura"></p>
+        <button>Enviar</button>
+    </form>
+
+    <div class="resultado">
+
+    </div>
+
+
+</body>
+<script>
+    function meuEscopo(evento){
+        const resultado = document.querySelector('.resultado')
+        const pessoas = []
+        // evento.preventDefault();
+        const form = document.querySelector('.form');
+        // form.onsubmit = function(evento){
+        //     alert(1);
+        //     console.log('Foi enviado')
+        // };
+        // let contador = 1;
+        // function recebeEventoForm(evento){
+        //     evento.preventDefault();
+        //     console.log(`Form não foi enviado ${contador}`)
+        //     contador++
+        // }
+
+        function recebeEventoForm(evento){
+            evento.preventDefault();
+            const nome = form.querySelector('.nome').value;
+            const sobrenome = form.querySelector('.sobrenome').value;
+            const peso = form.querySelector('.peso').value;
+            const altura = form.querySelector('.altura').value;
+            let pessoa = {
+                nome,
+                sobrenome,
+                peso,
+                altura
+            };
+            pessoas.push(pessoa);
+            resultado.innerHTML += `<p>${nome} ${sobrenome} ${peso} ${altura}`;
+        }
+
+        form.addEventListener('submit', recebeEventoForm);
+    }
+    meuEscopo();
+</script>
+</html>
