@@ -1,0 +1,1 @@
+Quando você declara uma variável com a palavra var, ela pode corresponder ao escopo global e local, já quando você faz isso com a palavra let, ela pode corresponder ao escopo global, local e de bloco.
