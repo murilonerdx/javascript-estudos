@@ -6,3 +6,6 @@ npm install --save-dev @babel/cli @babel/preset-env @babel/core
 
 Converter meu codigo em um codigo melhor
 npx babel main.js -o bundle.js --presets=@babel/env
+
+Adicionar webpack
+npm install --save-dev @babel/cli @babel/preset-env @babel/core babel-loader webpack webpack-cli regenerator-runtime core-js@2
