@@ -1,0 +1,4 @@
+Usando comando tsc -init, ele cria o tsconfig.json, porém com o tsconfig
+você pode configurar qual versão você quer transferir, es5 ou es6, na pasta tsconfig.json
+
+com tsc -w ele vai atualizar em runtime as atualizações quando salva
