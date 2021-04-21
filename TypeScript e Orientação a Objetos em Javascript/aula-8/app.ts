@@ -1,6 +1,6 @@
 import { Carro } from './Carro';
 import { Concessionaria } from './Concessionaria';
-import { Pessoa } from './Pessoa';
+import { Pessoa,qualquer_coisa as x } from './Pessoa';
 
 let carroA = new Carro('dodge journey', 4);
 let carroB = new Carro('veloster', 3);

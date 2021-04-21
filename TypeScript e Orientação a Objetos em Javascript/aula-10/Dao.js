@@ -3,6 +3,7 @@ exports.__esModule = true;
 exports.Dao = void 0;
 var Dao = /** @class */ (function () {
     function Dao() {
+        this.nomeTabela = '';
     }
     Dao.prototype.inserir = function (object) {
         console.log("logica de insert");

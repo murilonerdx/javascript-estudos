@@ -1,5 +1,5 @@
 export class Veiculo{
-  private modelo!:string;
+  protected modelo!:string;
   private velocidade: number = 0;
   
   public acelerar(): void{

@@ -1,6 +1,7 @@
 import { DaoInterface } from "./DaoInterface";
 
 export class Dao<T> implements DaoInterface<T>{
+  nomeTabela = '';
 
   inserir(object: T): boolean {
     console.log("logica de insert");
