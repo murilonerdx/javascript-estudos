@@ -6,7 +6,7 @@ class Carro{
     constructor(modelo:string, numeroDePortas:number){
         this.modelo = modelo;
     }
-    
+
     public acelerar(): void{
         this.velocidade = this.velocidade;
     }
@@ -65,6 +65,8 @@ class Pessoa{
     }
 
 }
+
+
 
 let carroA = new Carro('dodge journey', 4);
 let carroB = new Carro('veloster', 3);
