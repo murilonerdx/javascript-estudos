@@ -16,8 +16,8 @@ export class PainelComponent implements OnInit {
   ngOnInit() {
   }
 
-  atualizaResposta(): void {
-    console.log('Event binding');
+  atualizaResposta(resposta:Event): void {
+    console.log((<HTMLInputElement>resposta.target).value);
   }
 
 }
