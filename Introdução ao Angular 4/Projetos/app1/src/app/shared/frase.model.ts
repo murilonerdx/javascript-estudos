@@ -2,8 +2,8 @@ export class Frase{
   public fraseEng: string;
   public frasePTBr: string;
 
-  constructor(fraseEng:string,frasePtBr:string){
+  constructor(fraseEng:string,frasePTBr:string){
     this.fraseEng = fraseEng;
-    this.frasePtBr = frasePtBr;
+    this.frasePTBr = frasePTBr;
   }
 }
