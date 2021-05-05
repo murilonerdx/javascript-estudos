@@ -39,7 +39,10 @@ export class PainelComponent implements OnInit {
 
       //atualiza o objeto rodadaFrase
       this.atualizaRodada()
-
+      if (this.rodada == FRASES.length) {
+        this.progresso = this.progresso + (100 / this.frases.length)
+        alert("Você conclui as traduções com sucesso")
+      }
       //progresso
       this.progresso = this.progresso + (100 / this.frases.length)
       
@@ -49,7 +52,6 @@ export class PainelComponent implements OnInit {
       if(this.tentativas === -1) {
         alert('Você perdeu todas as tentativas')
       }
-      console.log(this.tentativas)
     }
   }
   
