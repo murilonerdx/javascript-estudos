@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Frase } from '../shared/frase-model';
+import { Frase } from '../shared/frase.model';
 import { FRASES } from './frases-mock';
 
 @Component({
@@ -15,6 +15,7 @@ export class PainelComponent implements OnInit {
   public rodadaFrase;
 
   public progresso: number = 0;
+  tentativas: number = 3;
 
   constructor() {
     this.atualizaRodada();
@@ -29,12 +30,14 @@ export class PainelComponent implements OnInit {
 
   verificaResposta(): void {
     if (this.rodadaFrase.frasePTBr == this.resposta) {
-      alert("Resposta certa");
       this.rodada++;
       this.atualizaRodada();
       this.progresso = this.progresso + (100 / this.frases.length);
     } else {
-      alert("Resposta Errada")
+      this.tentativas--;
+      if (this.tentativas == -1) {
+        alert('Você perdeu todas tentativas');
+      }
     }
     
   }
