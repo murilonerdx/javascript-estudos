@@ -13,10 +13,12 @@ export class AppComponent {
   public encerrarJogo(tipo: string): void {
     this.jogoEmAndamento = false;
     this.tipoEncerramento = tipo;
-    if (tipo == 'vitoria') {
-      console.log('vitoria');
-    } else if (tipo == 'derrota') {
-      console.log('derrota');
-    }
+    
+  }
+
+  public reiniciarJogo(): void {
+    this.jogoEmAndamento = true;
+    this.tipoEncerramento = undefined;
+    
   }
 }

@@ -12,19 +12,21 @@
             <h3 style="color: red"> Fim de jogo, infelizmente você perdeu :C</h3>
           </div>
         </div>
+        <button style="margin-top: 20px;" class="btn btn-primary" (click)="reiniciarJogo()">Jogar novamente</button>
       </div>
     </div>
-    </div>
+  </div>
 </ng-template>
 
 <ng-template #fimDeJogoVitoria>
-  <div class="row">
+  <div style="margin:50px" class="row container">
     <div class="col">
       <div class="alert alert-success" role="alert">
         <div class="d-flex justify-content-center">
           <h3 style="color: green"> Parabéns você ganhou!! C:</h3>
         </div>
       </div>
+      <button style="margin-top: 20px;" class="btn btn-primary" (click)="reiniciarJogo()">Jogar novamente</button>
     </div>
   </div>
 </ng-template>
