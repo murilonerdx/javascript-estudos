@@ -15,7 +15,7 @@ export class PainelComponent implements OnInit {
   public rodadaFrase;
 
   public progresso: number = 0;
-  tentativas: number = 3;
+  public tentativas: number = 3;
 
   constructor() {
     this.atualizaRodada();
