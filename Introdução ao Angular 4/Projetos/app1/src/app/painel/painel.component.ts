@@ -7,7 +7,7 @@ import { FRASES } from './frases-mock';
   templateUrl: './painel.component.html',
   styleUrls: ['./painel.component.css']
 })
-export class PainelComponent implements OnInit {
+export class PainelComponent implements OnInit, OnDestroy {
 
   public frases: Frase[] = FRASES
   public instrucao: string = 'Traduza a frase'
@@ -24,8 +24,12 @@ export class PainelComponent implements OnInit {
   constructor() {
     this.atualizaRodada()
   }
+ 
 
   ngOnInit() {
+  }
+  ngOnDestroy() {
+    console.log("Componente painel foi destruido");
   }
 
   public atualizaResposta(resposta: Event): void {
@@ -36,7 +40,7 @@ export class PainelComponent implements OnInit {
   public verificarResposta(): void {
     console.log(this.tentativas)
     // console.log('Verificar resposta: ', this.resposta)
-    if (this.rodadaFrase.frasePTBr == this.resposta) {
+    if (this.rodadaFrase.frasePTBr.toLowerCase() == this.resposta.toLowerCase()) {
       this.rodada++
 
       //atualiza o objeto rodadaFrase
