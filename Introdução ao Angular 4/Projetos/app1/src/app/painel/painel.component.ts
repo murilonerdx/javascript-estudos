@@ -8,43 +8,55 @@ import { FRASES } from './frases-mock';
   styleUrls: ['./painel.component.css']
 })
 export class PainelComponent implements OnInit {
-  public frases: Frase[] = FRASES;
-  public instrucao: string = "Traduza a frase:";
-  public resposta: string = '';
-  public rodada: number = 0;
-  public rodadaFrase;
 
-  public progresso: number = 0;
-  public tentativas: number = 3;
+  public frases: Frase[] = FRASES
+  public instrucao: string = 'Traduza a frase'
+  public resposta: string = ''
+  public rodada: number = 0
+  public rodadaFrase: Frase
+
+  public progresso: number = 0
+  public tentativas: number = 3
+
 
   constructor() {
-    this.atualizaRodada();
+    this.atualizaRodada()
   }
 
   ngOnInit() {
   }
 
-  atualizaResposta(resposta: Event): void {
-    this.resposta = (<HTMLInputElement>resposta.target).value;
+  public atualizaResposta(resposta: Event): void {
+    this.resposta = (<HTMLInputElement>resposta.target).value
+    // console.log(this.resposta)
   }
 
-  verificaResposta(): void {
+  public verificarResposta(): void {
+    console.log(this.tentativas)
+    // console.log('Verificar resposta: ', this.resposta)
     if (this.rodadaFrase.frasePTBr == this.resposta) {
-      this.rodada++;
-      this.atualizaRodada();
-      this.progresso = this.progresso + (100 / this.frases.length);
+      this.rodada++
+
+      //atualiza o objeto rodadaFrase
+      this.atualizaRodada()
+
+      //progresso
+      this.progresso = this.progresso + (100 / this.frases.length)
+      
+      
     } else {
-      this.tentativas--;
-      if (this.tentativas == -1) {
-        alert('Você perdeu todas tentativas');
+      this.tentativas--
+      if(this.tentativas === -1) {
+        alert('Você perdeu todas as tentativas')
       }
+      console.log(this.tentativas)
     }
-    
   }
-  public atualizaRodada(): void { 
-    this.rodadaFrase = this.frases[this.rodada];
-    this.resposta = '';
+  
+  public atualizaRodada(): void{
+    //define a frase da rodada com base em alguma lógica 
+    this.rodadaFrase = this.frases[this.rodada]
+    //limpar a resposta
+    this.resposta = ''
   }
-
 }
-
