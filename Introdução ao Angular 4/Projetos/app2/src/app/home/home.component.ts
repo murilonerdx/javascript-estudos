@@ -6,15 +6,18 @@ import { Oferta  } from '../oferta.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   providers: [OfertaService]
+
 })
 export class HomeComponent implements OnInit {
 
-  public oferta: Oferta[]
-  constructor(public service:OfertaService) { }
+  constructor(public service: OfertaService) { }
+  
+  public ofertas: Oferta[]
+
 
   ngOnInit() {
-    this.oferta = this.service.getOfertas()
-    console.log(this.oferta)
+    this.ofertas = this.service.getOfertas()
+    console.log(this.ofertas);
   }
 
 }
