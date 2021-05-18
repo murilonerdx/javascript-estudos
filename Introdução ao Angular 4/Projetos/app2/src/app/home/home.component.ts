@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     this.service.getOfertas2()
       .then((ofertas: Oferta[]) => {
         this.ofertas = ofertas;
-      })
+      },(param:any)=>console.log(param))
   }
 
 }
