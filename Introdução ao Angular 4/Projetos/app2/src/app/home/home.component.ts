@@ -5,8 +5,6 @@ import { Oferta  } from '../oferta.model';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [OfertaService]
-
 })
 export class HomeComponent implements OnInit {
 
@@ -16,8 +14,12 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-    this.ofertas = this.service.getOfertas()
-    console.log(this.ofertas);
+    //this.ofertas = this.service.getOfertas()
+    //console.log(this.ofertas);
+    this.service.getOfertas2()
+      .then((ofertas: Oferta[]) => {
+        this.ofertas = ofertas;
+      })
   }
 
 }
