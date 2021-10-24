@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Oferta} from './oferta.model'
+import {Http} from '@angular/http'
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class OfertaService {
 
-  constructor() { }
+  constructor(private http: Http) { }
 
   public ofertas: Array<Oferta> = [
     {
@@ -58,8 +61,10 @@ export class OfertaService {
     }
   ]
 
-  public getOfertas(): Array<Oferta> {
-    return this.ofertas;
+  public getOfertas(): Promise<Oferta[]> {
+    return this.http.get('http://localhost:3000/ofertas')
+    .toPromise()
+    .then((resposta:any) => resposta.json());;
   }
 
   //promise 
