@@ -9,7 +9,7 @@ export class RestaurantesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
 }
