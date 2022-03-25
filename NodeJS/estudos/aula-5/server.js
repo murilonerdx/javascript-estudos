@@ -13,12 +13,15 @@ mongoose.connect(process.env.connectionString)
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
-
+const {middlewareGlobal, checkCsrfError, csrfMiddleware} = require('./src/middleware/middlewareGlobal.js');
 
 
 const routes = require('./routes');
 const path = require('path');
-const middleware = require('./src/middleware/middlewareGlobal.js');
+const helmet = require('helmet');
+const csrf = require('csurf');
+
+app.use(csrf());
 // const { middlewareum, middlewaredois, middlewaretres } = require('./src/middleware/variosMiddlewares.js');
 
 app.on('done', () =>{
@@ -29,7 +32,7 @@ app.on('done', () =>{
 });
 
 app.use(express.urlencoded({ extended: true }));
-
+app.use(helmet());
 app.use(express.static(path.resolve(__dirname, 'public')));
 
 const sessionOptions = session({
@@ -48,7 +51,11 @@ const sessionOptions = session({
 app.set('views', path.resolve(__dirname, './src/views'))
 app.set('view engine', 'ejs')
 
-app.use(middleware);
+app.use(checkCsrfError);
+app.use(csrfMiddleware);
+app.use(middlewareGlobal);
+
+
 app.use(sessionOptions);
 app.use(flash())
 // app.use(middlewareum);
