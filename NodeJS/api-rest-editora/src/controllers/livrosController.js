@@ -20,6 +20,18 @@ class LivroController {
         });
     }
 
+    static deletarLivro = (req, res) => {
+        const id = req.params.id;
+
+        livros.findByIdAndDelete(id, (err, livros)=>{
+            if(!err){
+                res.status(200).send({message: `Livro ${id} deletado com sucesso`});
+            }else{
+                res.status(400).send({message: `${err.message} - falha ao cadastrar livro.`});
+            }
+        });
+    }
+
     static obterPorId = (req, res) => {
         const id = req.params.id;
 

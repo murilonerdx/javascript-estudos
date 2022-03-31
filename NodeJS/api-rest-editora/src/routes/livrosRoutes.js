@@ -3,12 +3,11 @@ import LivroController from "../controllers/livrosController.js"
 
 const router = express.Router();
 
-
 router
     .get('/livros', LivroController.listarLivros)
     .get('/livros/:id', LivroController.obterPorId)
+    .delete('/livros/:id', LivroController.deletarLivro)
     .post('/livros', LivroController.cadastrarLivro)
     .put('/livros/:id', LivroController.atualizarLivro);
-
 
 export default router;
