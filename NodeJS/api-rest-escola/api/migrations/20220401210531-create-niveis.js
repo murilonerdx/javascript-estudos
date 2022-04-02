@@ -11,6 +11,13 @@ module.exports = {
       descr_nivel: {
         type: Sequelize.STRING
       },
+      nivel_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Niveis', key: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -11,6 +11,20 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
+      matricula_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Matriculas', key: 'id'
+        }
+      },
+      turma_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Turmas', key: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
