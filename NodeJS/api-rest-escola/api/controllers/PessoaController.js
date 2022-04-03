@@ -9,7 +9,7 @@ class PessoaController {
       return res.status(500).json(error.message)
     }
   }
-
+  
   static async pegaUmaPessoa(req, res) {
     const { id } = req.params
     try {
