@@ -85,6 +85,23 @@ class PessoaController {
     }
   }
 
+  static async pegaTurmasLotadas(req, res) {
+    const lotacaoTurma = 2
+    try {
+      const todasAsMatriculas = await database.Matriculas.findAndCountAll({
+        where: {
+          status: 'confirmado'
+        },
+        attributes: ['turma_id'],
+        group: ['turma_id'],
+        having: Sequelize.literal(`count(turma_id) >= ${lotacaoTurma}`)
+      });
+      return res.status(200).json(todasAsMatriculas)
+    } catch (error) {
+      return res.status(500).json(error.message)
+    }
+  }
+
   static async restauraPessoa(req, res) {
     const { id } = req.params
     try {
