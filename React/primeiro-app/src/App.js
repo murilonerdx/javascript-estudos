@@ -1,62 +1,79 @@
-import React, { useState, useEffect, useRef } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import tmi from 'tmi.js';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { useState, useEffect } from 'react'
 
-function App() {
-  const [messages, setMessages] = useState([]);
-  const messagesEndRef = useRef(null);
+function App () {
+  const [nome, setNome] = useState('')
+  const [idade, setIdade] = useState('')
+  const [email, setEmail] = useState('')
 
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-  };
+  const [user, setUser] = useState({})
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
-    const client = new tmi.Client({
-      connection: { secure: true, reconnect: true },
-      channels: [ 'bagi' ] // Substitua por seu canal da Twitch
-    });
+    if (Object.keys(user).length > 0) {
+      setUsers((prevUsers) => [...prevUsers, user]);
+    }
+  }, [user]);
 
-    client.connect();
+  function handleRegister (e) {
+    e.preventDefault()
 
-    client.on('message', (channel, tags, message, self) => {
-      const newMessage = {username: tags['username'], message: message};
-      setMessages(prevMessages => {
-        // Verificar se a mensagem já foi adicionada à lista
-        if (prevMessages.some(m => m.username === newMessage.username && m.message === newMessage.message)) {
-          return prevMessages;
-        }
-        return [...prevMessages, newMessage];
-      });
-    });
-
-    scrollToBottom();
-
-    return () => {
-      client.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    alert('Usuario registrado')
+    setUser({
+      nome: nome,
+      idade: idade,
+      email: email
+    })
+  }
 
   return (
-    <div className="chat-container bg-transparent">
-      <div className="chat-header text-white bg-dark">
-        <h1>Twitch Chat</h1>
-        </div>
-  <ul className="chat-message-list">
-    {messages.map((message, index) => (
-      <li key={index} className="chat-message-item">
-        <span className="chat-message-username">{message.username}: </span>
-        <span className="chat-message-text">{message.message}</span>
-      </li>
-    ))}
-    <div ref={messagesEndRef} />
-  </ul>
-</div>
-  );
+    <div>
+      <form onSubmit={handleRegister} className='m-2 '>
+        <label>Nome: </label>
+        <br />
+        <input
+          class='form-control'
+          value={nome}
+          onChange={e => setNome(e.target.value)}
+        />
+
+        <label>Email: </label>
+        <br />
+        <input
+          type='text'
+          value={email}
+          class='form-control'
+          onChange={e => setEmail(e.target.value)}
+        />
+
+        <label>Idade: </label>
+        <br />
+        <input
+          type='text'
+          class='form-control'
+          onChange={e => setIdade(e.target.value)}
+          value={idade}
+        />
+
+        <button class='btn btn-primary' type='submit'>
+          Enviar
+        </button>
+      </form>
+
+      <div className='m-2'>
+        {users.map((u, index) => (
+          <li key={index}>
+           <h1>Bem vindo {u.nome}</h1>
+            <br />
+            <span>Email: {u.email}</span>
+            <br />
+            <span>Idade: {u.idade}</span>
+            <br />
+          </li>
+        ))}
+      </div>
+    </div>
+  )
 }
 
-export default App;
+export default App
