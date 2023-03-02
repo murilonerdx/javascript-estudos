@@ -16,17 +16,32 @@ function App () {
     setInput('')
   }
 
+  useEffect(() => {
+    const tarefaStorage = localStorage.getItem('@tarefa');
+
+    if(tarefaStorage){
+      setTarefas(JSON.parse(tarefaStorage))
+    }
+    
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('@tarefa', JSON.stringify(tarefas));
+  }, [tarefas])
+
+  
+
   return (
     <div>
       <form onSubmit={handleRegister} className='m-2 '>
         <label>Nome da tarefa: </label>
         <br />
         <input
-          class='form-control'
+          className='form-control'
           value={input}
           onChange={e => setInput(e.target.value)}
         />
-        <button class='btn btn-primary' type='submit'>
+        <button className='btn btn-primary' type='submit'>
           Adicionar tarefa
         </button>
       </form>
