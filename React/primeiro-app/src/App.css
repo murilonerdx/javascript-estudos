@@ -1,0 +1,51 @@
+/* Estilos para o contêiner do chat */
+.chat-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  /* Estilos para o cabeçalho do chat */
+  .chat-header {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  /* Estilos para a lista de mensagens */
+  .chat-message-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 300px;
+    overflow: auto;
+  }
+  
+  /* Estilos para cada item de mensagem */
+  .chat-message-item {
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para o nome do usuário */
+  .chat-message-username {
+    font-weight: bold;
+    color: #6441a5;
+  }
+  
+  /* Estilos para a mensagem em si */
+  .chat-message-text {
+    margin-left: 10px;
+  }
+  
+  /* Estilos para o campo de entrada de mensagem */
+  .chat-input {
+    width: 100%;
+    max-width: 800px;
+    margin: 10px auto 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
