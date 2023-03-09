@@ -3,14 +3,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
 import Filme from "./pages/Filme";
 import Header from "./pages/Header";
+import Erro from "./pages/Erro";
 
 const RouteApp = () => {
     return (
         <BrowserRouter>
             <Header/>
             <Routes>
-                <Route exact path="/" element={<Home />} />
-                <Route exact path="/filme" element={<Filme />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/filme/:id" element={ <Filme/> } />
+                <Route path="*" element={<Erro />} />
             </Routes>
         </BrowserRouter>
     );

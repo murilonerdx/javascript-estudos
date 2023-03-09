@@ -1,0 +1,21 @@
+.error{
+    width: 100%;
+    height: calc(100vh - 60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+    flex-direction: column;
+}
+
+.error h1{
+    font-size: 120px;
+}
+
+.error a{
+    text-decoration: none;
+    background-color: darkcyan;
+    color: white;
+    padding: 10px;
+    margin-top: 14px;
+}
