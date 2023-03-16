@@ -12,3 +12,7 @@
 >yarn add ts-node-dev -D: recurso para inicializar node.js
 em scripts coloque -> "dev": "ts-node-dev --transpile-only src/server.ts"
 agora apenas rodar yarn dev
+
+migration com prisma
+npm install @prisma/client
+npx prisma init
