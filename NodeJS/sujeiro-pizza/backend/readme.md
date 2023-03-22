@@ -13,6 +13,13 @@
 em scripts coloque -> "dev": "ts-node-dev --transpile-only src/server.ts"
 agora apenas rodar yarn dev
 
-migration com prisma
-npm install @prisma/client
-npx prisma init
+>migration com prisma
+>npm install @prisma/client
+>npx prisma init
+
+>yarn add bcryptjs
+
+> yarn add @types/bcrypt -D: cryptografar senha
+> yarn add jsonwebtoken: jwt token para gerar
+> yarn add @types/jsonwebtoken -D
+> yarn add dotenv: Para conseguir acessar dados .env
