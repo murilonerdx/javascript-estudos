@@ -23,3 +23,5 @@ agora apenas rodar yarn dev
 > yarn add jsonwebtoken: jwt token para gerar
 > yarn add @types/jsonwebtoken -D
 > yarn add dotenv: Para conseguir acessar dados .env
+> yarn add multer: Serve para ajudar a salvar imagens no backend
+> yarn add @types/multer -D

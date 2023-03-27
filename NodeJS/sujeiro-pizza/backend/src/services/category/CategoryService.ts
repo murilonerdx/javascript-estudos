@@ -4,7 +4,7 @@ import prismaClient from "../../prisma";
 interface CategoryRequest{
     name: string;
 }
-class CreateCategoryService{
+class CategoryService {
     async create({name}: CategoryRequest){
         if(name === ''){
             throw new Error('Nome invalido')
@@ -35,4 +35,4 @@ class CreateCategoryService{
     }
 }
 
-export {CreateCategoryService}
+export {CategoryService}

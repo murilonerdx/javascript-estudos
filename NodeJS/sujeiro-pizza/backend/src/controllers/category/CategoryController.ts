@@ -1,10 +1,10 @@
 import {Request, Response} from "express";
 import {DetailsUserService} from "../../services/users/DetailUserService";
-import {CreateCategoryService} from "../../services/category/CreateCategoryService";
+import {CategoryService} from "../../services/category/CategoryService";
 
 class CategoryController {
     async create(req: Request, res: Response) {
-        const createCategoryService = new CreateCategoryService()
+        const createCategoryService = new CategoryService()
         const {name} = req.body
 
         const category = await createCategoryService.create(
@@ -17,7 +17,7 @@ class CategoryController {
     }
 
     async findAll(req: Request, res: Response) {
-        const createCategoryService = new CreateCategoryService()
+        const createCategoryService = new CategoryService()
 
         const categories = await createCategoryService.findAll()
 
