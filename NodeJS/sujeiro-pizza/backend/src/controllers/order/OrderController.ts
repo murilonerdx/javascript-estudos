@@ -28,6 +28,19 @@ class OrderController{
         return res.json(order);
     }
 
+    async addItem(req:Request, res:Response){
+        const {order_id, product_id, amount} =req.body
+        const orderService = new OrderService()
+
+        const orderAddItem = await orderService.addItem({
+            order_id,
+            product_id,
+            amount
+        })
+
+        return res.json(orderAddItem)
+    }
+
 
 }
 

@@ -25,4 +25,5 @@ router.get('/product/category/:id', isAuthenticated, new ProductController().fin
 
 router.post('/order', isAuthenticated, new OrderController().create)
 router.delete('/order', isAuthenticated, new OrderController().delete)
+router.post('/order/addItem', isAuthenticated, new OrderController().addItem)
 export {router}

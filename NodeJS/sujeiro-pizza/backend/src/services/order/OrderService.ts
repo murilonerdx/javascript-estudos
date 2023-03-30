@@ -6,15 +6,21 @@ interface OrderRequest {
     name: string;
 }
 
-interface OrderCloseRequest{
+interface ItemRequest {
+    order_id: string;
+    product_id: string;
+    amount: number;
+}
+
+interface OrderCloseRequest {
     order_id: string;
 }
 
 class OrderService {
 
-    async create({table, name}: OrderRequest){
+    async create({table, name}: OrderRequest) {
         const order = await prismaClient.order.create({
-            data:{
+            data: {
                 table: table,
                 name: name
             }
@@ -22,10 +28,22 @@ class OrderService {
         return order
     }
 
-    async closeOrder({order_id}: OrderCloseRequest){
+    async closeOrder({order_id}: OrderCloseRequest) {
         const order = await prismaClient.order.delete({
-            where:{
+            where: {
                 id: order_id
+            }
+        })
+
+        return order
+    }
+
+    async addItem({order_id, product_id, amount}: ItemRequest) {
+        const order = await prismaClient.item.create({
+            data:{
+                order_id:order_id,
+                product_id: product_id,
+                amount: amount
             }
         })
 
