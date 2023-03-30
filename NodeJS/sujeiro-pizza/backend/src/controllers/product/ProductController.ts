@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+import {Request, response, Response} from "express";
 import {ProductService} from "../../services/product/ProductService";
 
 class ProductController {
@@ -20,6 +20,18 @@ class ProductController {
 
             return res.json(product)
         }
+    }
+
+    async findAllByCategoryId(req: Request, res: Response) {
+        const {id} = req.params
+
+        if(!id){
+            throw new Error("Precisa de um category_id")
+        }
+
+        const productService = new ProductService()
+        const product = await productService.findAllByCategoryId(id)
+        return res.json(product)
     }
 
     async findAll(req: Request, res: Response) {

@@ -34,6 +34,17 @@ class ProductService{
         return products
     }
 
+    async findAllByCategoryId(category_id: string){
+
+        const product = await prismaClient.product.findMany({
+            where: {
+                category_id: category_id
+            }
+        })
+
+        return product
+    }
+
 }
 
 export {ProductService}

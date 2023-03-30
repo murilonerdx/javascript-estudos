@@ -8,6 +8,7 @@ import {ProductController} from "./controllers/product/ProductController";
 import multer from "multer";
 
 import uploadConfig from './config/multer'
+import {OrderController} from "./controllers/order/OrderController";
 
 const router = Router()
 
@@ -20,5 +21,8 @@ router.post('/category', isAuthenticated, new CategoryController().create)
 router.get('/category', isAuthenticated, new CategoryController().findAll)
 router.get('/product', isAuthenticated, new ProductController().findAll)
 router.post('/product', isAuthenticated, upload.single('file'), new ProductController().create)
+router.get('/product/category/:id', isAuthenticated, new ProductController().findAllByCategoryId)
 
+router.post('/order', isAuthenticated, new OrderController().create)
+router.delete('/order', isAuthenticated, new OrderController().delete)
 export {router}
