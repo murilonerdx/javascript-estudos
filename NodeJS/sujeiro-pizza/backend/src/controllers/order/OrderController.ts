@@ -41,6 +41,51 @@ class OrderController{
         return res.json(orderAddItem)
     }
 
+    async removeItem(req:Request, res:Response){
+        const {order_id} =req.body
+        const orderService = new OrderService()
+
+        const orderClose = await orderService.closeOrder({
+            order_id
+        })
+
+        return res.json(orderClose)
+    }
+
+    async sendOrder(req:Request, res:Response){
+        const {order_id} =req.body
+        const orderService = new OrderService()
+
+        const orderClose = await orderService.sendOrder({
+            order_id
+        })
+
+        return res.json(orderClose)
+    }
+
+    async findAllOrders(req:Request, res:Response){
+        const orderService = new OrderService()
+
+        const orders = await orderService.listOrders()
+        return res.json(orders)
+    }
+
+    async detailOrder(req:Request, res:Response){
+        const {order_id} = req.body
+        const orderService = new OrderService()
+
+        const orders = await orderService.detailOrder(order_id)
+        return res.json(orders)
+    }
+
+    async finishOrder(req:Request, res:Response){
+        const {order_id} = req.body
+        const orderService = new OrderService()
+
+        const orders = await orderService.finishOrder(order_id)
+        return res.json(orders)
+    }
+
 
 }
 

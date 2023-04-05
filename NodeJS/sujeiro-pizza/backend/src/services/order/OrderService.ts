@@ -1,5 +1,4 @@
 import prismaClient from "../../prisma";
-import {Order} from "@prisma/client";
 
 interface OrderRequest {
     table: number;
@@ -40,10 +39,64 @@ class OrderService {
 
     async addItem({order_id, product_id, amount}: ItemRequest) {
         const order = await prismaClient.item.create({
-            data:{
-                order_id:order_id,
+            data: {
+                order_id: order_id,
                 product_id: product_id,
-                amount: amount
+                amount
+            }
+        })
+
+        return order
+    }
+
+    async sendOrder({order_id}: OrderCloseRequest) {
+        const order = await prismaClient.order.update({
+            where: {
+                id: order_id
+            },
+            data: {
+                draft: false
+            }
+        })
+
+        return order;
+    }
+
+    async listOrders() {
+        const orders = await prismaClient.order.findMany({
+            where: {
+                draft: false,
+                status: false,
+            },
+            orderBy: {
+                created_at: 'desc'
+            }
+        })
+
+        return orders;
+    }
+
+    async detailOrder({order_id}: OrderCloseRequest) {
+        const orders = await prismaClient.item.findMany({
+            where: {
+                order_id: order_id
+            },
+            include: {
+                product: true,
+                order: true
+            }
+        })
+
+        return orders;
+    }
+
+    async finishOrder({order_id}: OrderCloseRequest){
+        const order = await prismaClient.order.update({
+            where: {
+                id: order_id
+            },
+            data: {
+                status: true
             }
         })
 
