@@ -5,12 +5,9 @@ class AuthController {
     async handle(req: Request, res: Response) {
         const {email, password} = req.body
         const authUserService = new AuthUserService()
-
-        const auth = await authUserService.execute({
+        return await authUserService.execute({
             email, password
-        })
-
-        return res.json(auth)
+        }).then(e => res.json(e)).catch(e=> res.status(403 ).sendStatus(403 ))
     }
 }
 

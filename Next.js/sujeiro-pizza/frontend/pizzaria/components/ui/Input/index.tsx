@@ -1,5 +1,8 @@
 import style from './style.module.scss'
-interface InputPropos{
+import {ButtonHTMLAttributes, InputHTMLAttributes} from "react";
+import {Simulate} from "react-dom/test-utils";
+import input = Simulate.input;
+interface InputPropos extends InputHTMLAttributes<HTMLInputElement>{
     placeholder: string,
     type: string
 }

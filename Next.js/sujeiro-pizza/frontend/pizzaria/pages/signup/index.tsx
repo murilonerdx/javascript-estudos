@@ -1,9 +1,9 @@
 import Head from "next/head";
-import style from "@/styles/home.module.scss";
+import style from "../styles/home.module.scss";
 import Image from "next/image";
-import logoImg from "@/public/logo.svg";
-import {Input} from "@/components/ui/Input";
-import {Button} from "@/components/ui/Button";
+import logoImg from "../public/logo.svg";
+import {Input} from "../../components/ui/Input";
+import {Button} from "../../components/ui/Button";
 import Link from "next/link";
 
 export default function Signup() {
