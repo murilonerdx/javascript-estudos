@@ -14,15 +14,24 @@ export default function Home() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const [loading, setLoading] = useState('')
+    const [loading, setLoading] = useState(false)
 
     async function handleLogin(event: FormEvent){
         event.preventDefault()
+
+        if(email === '' || password === ''){
+            return;
+        }
+
         let data = {
             email: email,
             password: password
         }
+
+        setLoading(true);
         await signIn(data)
+
+        setLoading(false)
     }
     return (
         <>
@@ -39,7 +48,7 @@ export default function Home() {
 
                         <Input placeholder="Digite sua senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
 
-                        <Button type="submit" loading={false}>
+                        <Button type="submit" loading={loading}>
                             Acessar
                         </Button>
                     </form>
