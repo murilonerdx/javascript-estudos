@@ -28,9 +28,7 @@ export default function Category() {
         await Router.push("/")
     }
 
-    useEffect(() => {
-        api.get("/category").then(response => setCategories(response.data))
-    }, [])
+
 
     return (
         <>
