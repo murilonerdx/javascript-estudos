@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useState} from 'react';
+import {createContext, ReactNode, useEffect, useState} from 'react';
 
 import {api} from '../services/apiClient';
 
@@ -45,11 +45,28 @@ export async function signOut() {
         destroyCookie(undefined, '@nextauth.token')
         await Router.push('/')
     } catch {
-        console.log('erro ao deslogar')
+        toast.error("Erro ao tentar deslogar")
     }
 }
 
 export function AuthProvider({children}: AuthProviderProps) {
+    useEffect(() => {
+        const {'@nextauth.token': token} = parseCookies()
+
+        if(token){
+            api.get("/me").then(response => {
+                const {id, name, email} = response.data
+                setUser({
+                    id, name, email
+                })
+            })
+                .catch(() => {
+                    signOut();
+                })
+        }
+    }, [])
+
+
     const [user, setUser] = useState<UserProps>()
     const isAuthenticated = !!user;
 

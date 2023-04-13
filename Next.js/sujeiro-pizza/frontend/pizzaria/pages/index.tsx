@@ -7,6 +7,9 @@ import {Input} from "../components/ui/Input";
 import {Button} from "../components/ui/Button";
 import Link from "next/link";
 import {AuthContext} from "../context/AuthContext";
+import {canSSRGuest} from "../utils/canSSRGuest";
+import {toast} from "react-toastify";
+import styles from "../styles/home.module.scss";
 
 export default function Home() {
     const {signIn} =  useContext(AuthContext)
@@ -20,6 +23,7 @@ export default function Home() {
         event.preventDefault()
 
         if(email === '' || password === ''){
+            toast.warning("Existe campos vazios")
             return;
         }
 
@@ -45,8 +49,10 @@ export default function Home() {
                 <div className={style.login}>
                     <form onSubmit={handleLogin}>
                         <Input placeholder="Digite seu e-mail" type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        {email == '' ? <h4 className={styles.invalid}>Campo vazio *</h4> : ''}
 
                         <Input placeholder="Digite sua senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        {password == '' ? <h4 className={styles.invalid}>Campo vazio *</h4> : ''}
 
                         <Button type="submit" loading={loading}>
                             Acessar
@@ -60,3 +66,10 @@ export default function Home() {
         </>
     )
 }
+
+export const getServerSideProps = canSSRGuest(async (ctx) => {
+
+    return {
+        props: {}
+    }
+})

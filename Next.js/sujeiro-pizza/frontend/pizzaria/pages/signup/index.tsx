@@ -10,6 +10,7 @@ import {Button} from '../../components/ui/Button'
 import Link from 'next/link';
 import {FormEvent, useContext, useState} from "react";
 import {AuthContext} from "../../context/AuthContext";
+import {toast} from "react-toastify";
 
 export default function SignUp() {
 
@@ -43,7 +44,9 @@ export default function SignUp() {
             return;
         }
 
+
         if (name === '' || email === '' || password === '') {
+            toast.warning(`Existe parametros varios`)
             return;
         }
 
@@ -51,7 +54,7 @@ export default function SignUp() {
             name, email, password
         }
 
-        await signUp(data).then().catch(e => setLoading(false))
+        await signUp(data).then().catch(() => setLoading(false))
     }
 
     return (
