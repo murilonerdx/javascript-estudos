@@ -13,15 +13,13 @@ class ProductController {
 
             const {originalname, filename: banner} = req.file;
 
-            const product = await createProductService.create({
+            return await createProductService.create({
                 name,
                 price,
                 description,
                 banner,
                 category_id
-            });
-
-            return res.json(product)
+            }).then(response => res.json(response)).catch(() => res.status(401))
         }
     }
 
