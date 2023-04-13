@@ -23,6 +23,12 @@ class CategoryController {
 
         return res.json(categories)
     }
+
+    async deleteCategory(req: Request, res: Response){
+        const {id} = req.params
+        const createCategoryService = new CategoryService()
+        await createCategoryService.deleteById({id}).then(() => res.status(200))
+    }
 }
 
 export {CategoryController}

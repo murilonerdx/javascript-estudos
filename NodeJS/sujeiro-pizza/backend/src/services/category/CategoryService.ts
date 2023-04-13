@@ -1,20 +1,21 @@
 import prismaClient from "../../prisma";
 
 
-interface CategoryRequest{
+interface CategoryRequest {
     name: string;
 }
+
 class CategoryService {
-    async create({name}: CategoryRequest){
-        if(name === ''){
+    async create({name}: CategoryRequest) {
+        if (name === '') {
             throw new Error('Nome invalido')
         }
 
         const category = await prismaClient.category.create({
-            data:{
+            data: {
                 name: name,
             }
-            ,select:{
+            , select: {
                 id: true,
                 name: true,
             }
@@ -23,7 +24,17 @@ class CategoryService {
         return category
     }
 
-    async findAll(){
+    async deleteById({id}) {
+        return prismaClient.category.delete({
+            where: {
+                id: id
+            }, select: {
+                name: true
+            }
+        });
+    }
+
+    async findAll() {
         const categories = await prismaClient.category.findMany({
             select: {
                 id: true,
