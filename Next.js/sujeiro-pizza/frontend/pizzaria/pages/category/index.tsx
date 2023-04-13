@@ -7,6 +7,7 @@ import {signOut} from "../../context/AuthContext";
 import {setupAPIClient} from "../../services/api";
 import {toast} from "react-toastify";
 import Router from "next/router";
+import {canSSRAuth} from "../../utils/canSSRAuth";
 
 export default function Category() {
 
@@ -58,3 +59,10 @@ export default function Category() {
         </>
     )
 }
+
+export const getServerSideProps = canSSRAuth(async (ctx) => {
+
+    return {
+        props: {}
+    }
+})
