@@ -76,7 +76,7 @@ class OrderService {
         return orders;
     }
 
-    async detailOrder({order_id}: OrderCloseRequest) {
+    async detailOrder(order_id: string) {
         const orders = await prismaClient.item.findMany({
             where: {
                 order_id: order_id

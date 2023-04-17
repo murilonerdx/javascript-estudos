@@ -6,14 +6,12 @@ class CategoryController {
     async create(req: Request, res: Response) {
         const createCategoryService = new CategoryService()
         const {name} = req.body
-
-        const category = await createCategoryService.create(
+        return await createCategoryService.create(
             {
                 name
             }
-        )
+        ).then(response => res.json(response)).catch((err) => res.status(400).json({"name": name, "description": err.message}))
 
-        return res.json(category)
     }
 
     async findAll(req: Request, res: Response) {
@@ -24,7 +22,7 @@ class CategoryController {
         return res.json(categories)
     }
 
-    async deleteCategory(req: Request, res: Response){
+    async deleteCategory(req: Request, res: Response) {
         const {id} = req.params
         const createCategoryService = new CategoryService()
         await createCategoryService.deleteById({id}).then(() => res.status(200))

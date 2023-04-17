@@ -8,52 +8,54 @@ import {setupAPIClient} from "../../services/api";
 import {toast} from "react-toastify";
 import Router from "next/router";
 import {canSSRAuth} from "../../utils/canSSRAuth";
+import Head from "next/head";
 
 export default function Category() {
 
     const [categories, setCategories] = useState([])
     const [name, setName] = useState('')
-    async function handleRegister(event: FormEvent){
+
+    async function handleRegister(event: FormEvent) {
         event.preventDefault();
 
-        if(name === ''){
+        if (name === '') {
             toast.warning("Existe campos vazios")
             return;
         }
 
-        await api.post("/category", {
-            name: name
-        }).then(() => toast.success(`Categoria ${name} criada com sucesso`)).catch(() => toast.error("Erro ao tentar criar categoria"))
-
-        await Router.push("/")
+        try {
+            return await api.post("/category", {
+                name: name
+            }).then(() => toast.success("Categoria criada com sucesso"))
+        } catch (err) {
+            toast.error( `${err.response.data.description}`)
+        }
     }
-
-
 
     return (
         <>
-            <head>
+            <Head>
                 <title>
                     Nova categoria - Sujeito Pizzaria
                 </title>
-            </head>
+            </Head>
 
-                <div>
-                    <Header/>
-                    <main className={styles.container}>
-                        <form className={styles.form} onSubmit={handleRegister}>
-                            <input
-                                type="text"
-                                placeholder="Digite o nome da categoria"
-                                className={styles.input}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                            <button className={styles.buttonAdd} type="submit">
-                                Cadastrar
-                            </button>
-                        </form>
-                    </main>
-                </div>
+            <div>
+                <Header/>
+                <main className={styles.container}>
+                    <form className={styles.form} onSubmit={handleRegister}>
+                        <input
+                            type="text"
+                            placeholder="Digite o nome da categoria"
+                            className={styles.input}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <button className={styles.buttonAdd} type="submit">
+                            Cadastrar
+                        </button>
+                    </form>
+                </main>
+            </div>
         </>
     )
 }

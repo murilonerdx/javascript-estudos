@@ -12,7 +12,7 @@ export function Button({loading, children, ...rest}: ButtonProps) {
 
     return (
         <button className={style.button} disabled={loading} {...rest}>
-            <a className={style.buttonText}>
+            <div className={style.buttonText}>
                 {loading ? (
                     <FaSpinner color="#FFF" size={16}/>
                 ) : (
@@ -20,7 +20,7 @@ export function Button({loading, children, ...rest}: ButtonProps) {
                         {children}
                     </a>
                 )}
-            </a>
+            </div>
         </button>
     )
 }
