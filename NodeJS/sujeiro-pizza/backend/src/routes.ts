@@ -34,5 +34,5 @@ router.delete('/order/remove', isAuthenticated, new OrderController().removeItem
 router.put('/order/send', isAuthenticated, new OrderController().sendOrder)
 router.get('/order/all', isAuthenticated, new OrderController().findAllOrders)
 router.get('/order/detail', isAuthenticated, new OrderController().detailOrder)
-router.put('/order/finish', isAuthenticated, new OrderController().finishOrder)
+router.put('/order/finish/:order_id', isAuthenticated, new OrderController().finishOrder)
 export {router}

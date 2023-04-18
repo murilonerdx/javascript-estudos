@@ -1,5 +1,6 @@
 import {Request, response, Response} from "express";
 import {ProductService} from "../../services/product/ProductService";
+import {parse} from "dotenv";
 
 class ProductController {
     async create(req: Request, res: Response) {
@@ -13,20 +14,22 @@ class ProductController {
 
             const {originalname, filename: banner} = req.file;
 
-            return await createProductService.create({
+            const product = await createProductService.create({
                 name,
                 price,
                 description,
                 banner,
                 category_id
-            }).then(response => res.json(response)).catch(() => res.status(401))
+            });
+
+            return res.json(product)
         }
     }
 
     async findAllByCategoryId(req: Request, res: Response) {
         const {id} = req.params
 
-        if(!id){
+        if (!id) {
             throw new Error("Precisa de um category_id")
         }
 

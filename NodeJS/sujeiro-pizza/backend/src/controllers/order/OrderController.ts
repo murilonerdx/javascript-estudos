@@ -8,16 +8,17 @@ class OrderController{
         const {table, name} = req.body;
 
         const orderService  = new OrderService()
-        const order = await orderService.create({
+        return await orderService.create({
             table,
             name
-        })
+        }).then(response => res.json(response)).catch(() => res.status(500).json({
+            msg: "A Mesa já está ocupada"
+        }))
 
-        return res.json(order)
     }
 
     async delete(req:Request, res:Response){
-        const order_id = req.query.order_id as string;
+        const order_id = req.body.order_id;
 
         const removeOrder = new OrderService()
         const order = removeOrder.closeOrder({
@@ -29,20 +30,21 @@ class OrderController{
     }
 
     async addItem(req:Request, res:Response){
-        const {order_id, product_id, amount} =req.body
-        const orderService = new OrderService()
+        const { order_id, product_id, amount } = req.body;
 
-        const orderAddItem = await orderService.addItem({
+        const addItem = new OrderService();
+
+        const order = await addItem.addItem({
             order_id,
             product_id,
             amount
         })
 
-        return res.json(orderAddItem)
+        return res.json(order);
     }
 
     async removeItem(req:Request, res:Response){
-        const {order_id} =req.body
+        const {order_id} = req.body
         const orderService = new OrderService()
 
         const orderClose = await orderService.closeOrder({
@@ -71,22 +73,21 @@ class OrderController{
     }
 
     async detailOrder(req:Request, res:Response){
-        const {order_id} = req.params
+        const {order_id} = req.body
         const orderService = new OrderService()
+
 
         const orders = await orderService.detailOrder(order_id)
         return res.json(orders)
     }
 
     async finishOrder(req:Request, res:Response){
-        const {order_id} = req.body
-        const orderService = new OrderService()
+        const {order_id} = req.params
 
+        const orderService = new OrderService()
         const orders = await orderService.finishOrder(order_id)
         return res.json(orders)
     }
-
-
 }
 
 export {OrderController}

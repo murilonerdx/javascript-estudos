@@ -8,13 +8,9 @@ import {toast} from "react-toastify";
 import FormData from "form-data";
 import Head from "next/head";
 
-type ItemProps = {
-    name: string
-    id: string
-}
 export default function Product() {
     const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(null);
     const [description, setDescription] = useState('');
 
     const [avatarUrl, setAvatarUrl] = useState('');
@@ -48,13 +44,8 @@ export default function Product() {
 
     }
 
-    //Quando você seleciona uma nova categoria na lista
     function handleChangeCategory(event){
-        // console.log("POSICAO DA CATEGORIA SELECIONADA ", event.target.value)
-        //console.log('Categoria selecionada ', categories[event.target.value])
-
         setCategorySelected(event.target.value)
-
     }
 
     async function handleRegister(event: FormEvent){
@@ -63,7 +54,7 @@ export default function Product() {
         try{
             const data = new FormData();
 
-            if(name === '' || price === '' || description === '' || imageAvatar === null){
+            if(name === '' || price === null || description === '' || imageAvatar === null){
                 toast.error("Preencha todos os campos!");
                 return;
             }
@@ -79,12 +70,11 @@ export default function Product() {
             toast.success('Cadastrado com sucesso!')
 
         }catch(err){
-            console.log(err);
             toast.error("Ops erro ao cadastrar!")
         }
 
         setName('');
-        setPrice('');
+        setPrice(0.00);
         setDescription('')
         setImageAvatar(null);
         setAvatarUrl('');

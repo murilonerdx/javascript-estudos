@@ -21,19 +21,14 @@
     border:0;
     margin-left: 1rem;
   }
-  h1{
-    margin: 0.5rem;
-  }
 
 }
 
-.listOrders{
+.listOreders{
   display: flex;
   flex-direction: column;
   margin: 1rem 0;
 }
-
-
 
 .orderItem{
   display: flex;
@@ -61,4 +56,9 @@
   height: 60px;
   border-radius: 0.3rem 0 0 0.3rem;
   margin-right: 1rem;
+}
+
+.emptyList{
+  font-size: 1.2rem;
+  color: var(--gray-100);
 }

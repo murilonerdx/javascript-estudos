@@ -12,7 +12,6 @@ import Head from "next/head";
 
 export default function Category() {
 
-    const [categories, setCategories] = useState([])
     const [name, setName] = useState('')
 
     async function handleRegister(event: FormEvent) {
@@ -26,7 +25,7 @@ export default function Category() {
         try {
             return await api.post("/category", {
                 name: name
-            }).then(() => toast.success("Categoria criada com sucesso"))
+            }).then(() => toast.success("Categoria criada com sucesso") && setName(''))
         } catch (err) {
             toast.error( `${err.response.data.description}`)
         }

@@ -8,7 +8,7 @@ interface OrderRequest {
 interface ItemRequest {
     order_id: string;
     product_id: string;
-    amount: number;
+    amount: number
 }
 
 interface OrderCloseRequest {
@@ -18,6 +18,16 @@ interface OrderCloseRequest {
 class OrderService {
 
     async create({table, name}: OrderRequest) {
+        const tableAway = await prismaClient.order.findFirst({
+            where: {
+                table: table
+            }
+        })
+
+        if(tableAway){
+            throw new Error("Essa mesa encontra-se ocupada")
+        }
+
         const order = await prismaClient.order.create({
             data: {
                 table: table,
@@ -25,6 +35,7 @@ class OrderService {
             }
         })
         return order
+
     }
 
     async closeOrder({order_id}: OrderCloseRequest) {
@@ -39,14 +50,14 @@ class OrderService {
 
     async addItem({order_id, product_id, amount}: ItemRequest) {
         const order = await prismaClient.item.create({
-            data: {
+            data:{
                 order_id: order_id,
                 product_id: product_id,
                 amount
             }
         })
 
-        return order
+        return order;
     }
 
     async sendOrder({order_id}: OrderCloseRequest) {
@@ -78,19 +89,19 @@ class OrderService {
 
     async detailOrder(order_id: string) {
         const orders = await prismaClient.item.findMany({
-            where: {
+            where:{
                 order_id: order_id
             },
-            include: {
-                product: true,
-                order: true
+            include:{
+                product:true,
+                order:true,
             }
         })
 
         return orders;
     }
 
-    async finishOrder({order_id}: OrderCloseRequest){
+    async finishOrder(order_id: string) {
         const order = await prismaClient.order.update({
             where: {
                 id: order_id

@@ -105,7 +105,7 @@ export function AuthProvider({children}: AuthProviderProps) {
 
     async function signUp({name, email, password}: SignUpProps) {
         try {
-            if (email.toLowerCase()
+            if (email
                 .match(
                     /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/
                 )) {
@@ -116,7 +116,6 @@ export function AuthProvider({children}: AuthProviderProps) {
                 })
 
                 toast.success("Conta criada com sucesso!")
-                console.log(response)
                 await Router.push('/')
             }
         } catch (e) {
