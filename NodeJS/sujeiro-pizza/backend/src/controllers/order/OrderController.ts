@@ -73,16 +73,19 @@ class OrderController{
     }
 
     async detailOrder(req:Request, res:Response){
-        const {order_id} = req.body
-        const orderService = new OrderService()
+        const order_id = req.query.order_id as string;
 
+        const detailOrderService = new OrderService();
 
-        const orders = await orderService.detailOrder(order_id)
-        return res.json(orders)
+        const orders = await detailOrderService.detailOrder(
+            order_id
+        )
+
+        return res.json(orders);
     }
 
     async finishOrder(req:Request, res:Response){
-        const {order_id} = req.params
+        const {order_id} = req.body
 
         const orderService = new OrderService()
         const orders = await orderService.finishOrder(order_id)

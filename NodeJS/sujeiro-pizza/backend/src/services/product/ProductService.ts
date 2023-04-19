@@ -31,14 +31,13 @@ class ProductService{
     }
 
     async findAllByCategoryId(category_id: string){
-
-        const product = await prismaClient.product.findMany({
-            where: {
+        const findByCategory = await prismaClient.product.findMany({
+            where:{
                 category_id: category_id
             }
         })
 
-        return product
+        return findByCategory;
     }
 
 }

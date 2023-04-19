@@ -1,21 +1,27 @@
 import Modal from 'react-modal';
 import styles from './styles.module.scss'
 
-import { FiX } from 'react-icons/fi'
+import {FiX} from 'react-icons/fi'
 import {OrderItemProps} from "../../../pages/dashboard";
 
 
-interface ModalOrderProps{
+interface ModalOrderProps {
     isOpen: boolean;
     onRequestClose: () => void;
     order: OrderItemProps[];
     handleFinishOrder: (id: string) => void;
 }
 
-export function ModalOrder({ isOpen, onRequestClose, order, handleFinishOrder  }: ModalOrderProps){
+export function ModalOrder({isOpen, onRequestClose, order, handleFinishOrder}: ModalOrderProps) {
+
+    function somarValores(itens: OrderItemProps[]){
+        return itens.reduce((total, item) => {
+            return total + item.amount;
+        }, 0);
+    }
 
     const customStyles = {
-        content:{
+        content: {
             top: '50%',
             bottom: 'auto',
             left: '50%',
@@ -26,7 +32,7 @@ export function ModalOrder({ isOpen, onRequestClose, order, handleFinishOrder  }
         }
     };
 
-    return(
+    return (
         <Modal
             isOpen={isOpen}
             onRequestClose={onRequestClose}
@@ -37,9 +43,9 @@ export function ModalOrder({ isOpen, onRequestClose, order, handleFinishOrder  }
                 type="button"
                 onClick={onRequestClose}
                 className="react-modal-close"
-                style={{ background: 'transparent', border:0 }}
+                style={{background: 'transparent', border: 0}}
             >
-                <FiX size={45} color="#f34748" />
+                <FiX size={45} color="#f34748"/>
             </button>
 
             <div className={styles.container}>
@@ -49,7 +55,7 @@ export function ModalOrder({ isOpen, onRequestClose, order, handleFinishOrder  }
         Mesa: <strong>{order[0].order.table}</strong>
       </span>
 
-                {order.map( item => (
+                {order.map(item => (
                     <section key={item.id} className={styles.containerItem}>
                         <span>{item.amount} - <strong>{item.product.name}</strong></span>
                         <span className={styles.description}>
@@ -59,7 +65,9 @@ export function ModalOrder({ isOpen, onRequestClose, order, handleFinishOrder  }
                 ))}
 
 
-                <button className={styles.buttonOrder} onClick={ () => handleFinishOrder(order[0].order_id) }>
+                <h4>Total: {somarValores(order)}</h4>
+
+                <button className={styles.buttonOrder} onClick={() => handleFinishOrder(order[0].order_id)}>
                     Concluir pedido
                 </button>
 
