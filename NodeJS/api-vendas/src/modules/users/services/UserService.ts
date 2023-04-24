@@ -2,7 +2,7 @@ import AppError from "@shared/errors/ApiError";
 import UsersRepository from "@modules/users/typeorm/repositories/UserRepository";
 import {getCustomRepository} from "typeorm";
 import User from "@modules/users/typeorm/entities/User";
-import { hash } from 'bcryptjs';
+import {compare, hash} from 'bcryptjs';
 import { isAfter, addHours } from 'date-fns';
 import path from 'path';
 import fs from 'fs';
@@ -21,10 +21,21 @@ interface IRequestAvatar {
   user_id: string;
   avatarFilename: string;
 }
+interface IRequestUpdateProfile {
+  user_id: string;
+  name: string;
+  email: string;
+  password?: string;
+  old_password?: string;
+}
 
 interface IRequestResetPassword {
   token: string;
   password: string;
+}
+
+interface IRequestUserProfile {
+  user_id: string;
 }
 
 class UserService{
@@ -142,6 +153,61 @@ class UserService{
         },
       },
     });
+  }
+
+  public async showProfile({ user_id }: IRequestUserProfile): Promise<User> {
+    const usersRepository = getCustomRepository(UsersRepository);
+
+    const user = await usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new AppError('User not found.');
+    }
+
+    return user;
+  }
+
+  public async updateProfile({
+                         user_id,
+                         name,
+                         email,
+                         password,
+                         old_password,
+                       }: IRequestUpdateProfile): Promise<User> {
+    const usersRepository = getCustomRepository(UsersRepository);
+
+    const user = await usersRepository.findById(user_id);
+
+    if (!user) {
+      throw new AppError('User not found.');
+    }
+
+    const userUpdateEmail = await usersRepository.findByEmail(email);
+
+    if (userUpdateEmail && userUpdateEmail.id !== user_id) {
+      throw new AppError('There is already one user with this email.');
+    }
+
+    if (password && !old_password) {
+      throw new AppError('Old password is required.');
+    }
+
+    if (password && old_password) {
+      const checkOldPassword = await compare(old_password, user.password);
+
+      if (!checkOldPassword) {
+        throw new AppError('Old password does not match.');
+      }
+
+      user.password = await hash(password, 8);
+    }
+
+    user.name = name;
+    user.email = email;
+
+    await usersRepository.save(user);
+
+    return user;
   }
 }
 

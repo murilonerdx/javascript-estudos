@@ -3,9 +3,9 @@ import UserService from '../services/UserService';
 
 export default class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const listUser = new UserService();
+    const uS = new UserService();
 
-    const users = await listUser.list();
+    const users = await uS.list();
 
     return response.json(users);
   }
@@ -13,9 +13,9 @@ export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
 
-    const createUser = new UserService();
+    const uS = new UserService();
 
-    const user = await createUser.create({
+    const user = await uS.create({
       name,
       email,
       password,
@@ -27,9 +27,9 @@ export default class UsersController {
   public async resetPassword(request: Request, response: Response): Promise<Response> {
     const { password, token } = request.body;
 
-    const resetPassword = new UserService();
+    const uS = new UserService();
 
-    await resetPassword.resetPassword({
+    await uS.resetPassword({
       password,
       token,
     });
@@ -40,9 +40,9 @@ export default class UsersController {
   public async forgotPassword(request: Request, response: Response): Promise<Response> {
     const { email } = request.body;
 
-    const sendForgotPasswordEmail = new UserService();
+    const uS = new UserService();
 
-    await sendForgotPasswordEmail.sendPasswordEmail(
+    await uS.sendPasswordEmail(
       email,
     );
 
@@ -50,9 +50,9 @@ export default class UsersController {
   }
 
   public async updateAvatar(request: Request, response: Response): Promise<Response> {
-    const updateAvatar = new UserService();
+    const uS = new UserService();
 
-    const user = updateAvatar.updateAvatar({
+    const user = uS.updateAvatar({
       user_id: request.user.id,
       avatarFilename: request.file!!.filename,
     });
