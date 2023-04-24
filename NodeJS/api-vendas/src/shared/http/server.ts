@@ -2,6 +2,7 @@ import cors from 'cors';
 import 'reflect-metadata';
 import express, { NextFunction, Request, Response } from 'express';
 import AppError from "@shared/errors/ApiError";
+import uploadConfig from '@config/upload';
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.use(
     });
   },
 );
+
+app.use('/files', express.static(uploadConfig.directory));
 
 app.listen(3333, () => {
   console.log('Server started on port 3333! 🏆');
