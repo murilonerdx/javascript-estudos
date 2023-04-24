@@ -24,6 +24,31 @@ export default class UsersController {
     return response.json(user);
   }
 
+  public async resetPassword(request: Request, response: Response): Promise<Response> {
+    const { password, token } = request.body;
+
+    const resetPassword = new UserService();
+
+    await resetPassword.resetPassword({
+      password,
+      token,
+    });
+
+    return response.status(204).json();
+  }
+
+  public async forgotPassword(request: Request, response: Response): Promise<Response> {
+    const { email } = request.body;
+
+    const sendForgotPasswordEmail = new UserService();
+
+    await sendForgotPasswordEmail.sendPasswordEmail(
+      email,
+    );
+
+    return response.status(204).json();
+  }
+
   public async updateAvatar(request: Request, response: Response): Promise<Response> {
     const updateAvatar = new UserService();
 
