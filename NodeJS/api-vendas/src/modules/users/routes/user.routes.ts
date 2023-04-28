@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { celebrate, Joi, Segments } from 'celebrate';
+import {Router} from 'express';
+import {celebrate, Joi, Segments} from 'celebrate';
 import UsersController from '../controllers/UserController';
 import isAuthenticated from "@shared/http/middlewares/isAuthenticated";
 import multer from 'multer';
@@ -8,6 +8,7 @@ import uploadConfig from '@config/upload';
 const usersRouter = Router();
 const usersController = new UsersController();
 
+usersRouter.use(isAuthenticated);
 usersRouter.get('/', isAuthenticated, usersController.index);
 const upload = multer(uploadConfig);
 
@@ -51,7 +52,6 @@ usersRouter.post(
   }),
   usersController.resetPassword,
 );
-
 
 
 export default usersRouter;
