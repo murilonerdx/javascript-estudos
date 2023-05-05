@@ -20,6 +20,17 @@ interface IRequestUpdate {
   email: string;
 }
 
+interface IPaginateCustomer {
+  from: number;
+  to: number;
+  per_page: number;
+  total: number;
+  current_page: number;
+  prev_page: number | null;
+  next_page: number | null;
+  data: Customer[];
+}
+
 class CustomerService {
   public async create({ name, email }: IRequest): Promise<Customer> {
     const customerRepository = getCustomRepository(CustomerRepository);
@@ -51,12 +62,12 @@ class CustomerService {
     await customersRepository.remove(customer);
   }
 
-  public async findAll(): Promise<Customer[]> {
+  public async findAll(): Promise<IPaginateCustomer> {
     const customersRepository = getCustomRepository(CustomerRepository);
 
-    const customers = customersRepository.find();
+    const customers = await customersRepository.createQueryBuilder().paginate();
 
-    return customers;
+    return customers as IPaginateCustomer;
   }
 
   public async findById({ id }: IRequestFindById): Promise<Customer> {
